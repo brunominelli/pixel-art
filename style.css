@@ -2,3 +2,22 @@
     margin: 0;
     padding: 0;
 }
+
+.color {
+    border: 1px solid black;
+    display: inline-block;
+}
+
+.color-gray {
+    background-color: black;
+}
+.color-cyan {
+    background-color: cyan;
+}
+.color-yellow {
+    background-color: yellow;
+}
+
+.color-magenta {
+    background-color: magenta;
+}
