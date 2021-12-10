@@ -1,4 +1,6 @@
 // Constantes e Variáveis
+const elementHeader = document.getElementsByTagName('header');
+const elementFooter = document.getElementsByTagName('footer');
 const colorPalette = document.querySelectorAll('.color');
 const colorsClass = ['color-black', 'color-cyan', 'color-yellow', 'color-magenta'];
 const colorsNames = ['black', 'cyan', 'yellow', 'magenta'];
@@ -95,7 +97,8 @@ function generateRGBColors() {
 
   return `rgb(${red}, ${green}, ${blue})`;
 }
-
+elementFooter[0].style.backgroundColor = generateRGBColors();
+elementHeader[0].style.backgroundColor = generateRGBColors();
 // Função que gera três cores para a paleta apresentada à pessoa usuária.
 function generateDinamicPalette() {
   colorPalette[0].style.backgroundColor = defaultColor;
