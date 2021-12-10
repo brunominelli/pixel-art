@@ -1,71 +1,40 @@
-const elementMain = document.getElementsByTagName('main')[0];
-console.log(elementMain);
+const colorPalette = document.querySelectorAll('.color');
+const colorsClass = ['color-black', 'color-cyan', 'color-yellow', 'color-magenta'];
+const colorsNames = ['black', 'cyan', 'yellow', 'magenta'];
+//console.log(colorPalette);
+let defaultColor = colorsNames[0];
 
-const elementHeader = document.getElementsByTagName('header')[0];
-const elementH1 = document.createElement('h1');
-elementH1.innerHTML = 'Paleta de Cores';
-elementH1.id = 'title';
-elementHeader.appendChild(elementH1);
-
-// Sections
-const sectionIds = ['color-palette', 'pixel-board'];
-function addTagSection(array) {
-  for (let index = 0; index < array.length; index += 1) {
-    const elementSection = document.createElement('section');
-    elementSection.id = array[index];
-    elementMain.appendChild(elementSection);
-  }
+for (let index = 0; index < colorPalette.length; index += 1) {
+  colorPalette[index].style.backgroundColor = colorsClass[index];
 }
-addTagSection(sectionIds);
 
-// Divs - Class: color
-const colorClassName = ['color', 'color-black', 'color-cyan', 'color-yellow', 'color-magenta'];
-function addDivClassColor(array) {
-  for (let index = 1; index < array.length; index += 1) {
-    const elementDiv = document.createElement('div');
-    const elementIdColorPalette = document.getElementById('color-palette');
+function removeSelected() {
+  const selected = document.querySelector('.selected');
+  selected.classList.remove('selected');
+}
 
-    if (array[index] === 'color-black') {
-      elementDiv.className = `${array[0]}${elementDiv.className} ${array[index]} selected`;
-    } else if (index > 0) {
-      elementDiv.className = `${array[0]}${elementDiv.className} ${array[index]}`;
+function addSelected() {
+  for (let index = 0; index < colorPalette.length; index += 1) {
+    colorPalette[index].addEventListener('click', () => {
+      removeSelected();
+      defaultColor = colorsNames[index];
+      colorPalette[index].className = `color ${colorsClass[index]} selected`;
+      console.log(defaultColor);
+    });
+  }
+   
+}
+
+document.addEventListener('click', function(event) {
+  if (event.target.classList.contains('pixel')) {
+    for (let index = 0; index <= colorsNames.length; index += 1) {
+      if (event.target.style.backgroundColor !== colorsNames[index]) {
+        event.target.style.backgroundColor = defaultColor;
+      } else event.target.style.backgroundColor = 'white';
     }
-
-    elementIdColorPalette.appendChild(elementDiv);
   }
-}
-addDivClassColor(colorClassName);
+});
 
-// Divs - Class: pixel
-const classPixel = 'pixel';
-const width = 5;
-const height = 5;
 
-function addDivClassPixel() {
-  for (let i = 0; i < width; i += 1) {
-    const elementIdPixelBoard = document.getElementById('pixel-board');
-    for (let j = 0; j < height; j += 1) {
-      const elementDiv = document.createElement('div');
-      elementDiv.className = `${classPixel}`;
-      elementIdPixelBoard.appendChild(elementDiv);
-    }
-    const elementBr = document.createElement('br');
-    elementIdPixelBoard.appendChild(elementBr);
-  }
-}
-addDivClassPixel();
-
-// Funções
-const colorPalette = document.getElementById('color-palette');
-//const pixelBoard = document.getElementById('pixel-board');
-
-function eventSelected(event) {
-  const elementColor = event.target;
-  if (elementColor.classList.contains('color')) {
-    const color = document.getElementsByClassName('selected')[0];
-    color.classList.remove('selected');
-    elementColor.classList.add('selected');
-  }
-}
-
-colorPalette.addEventListener('click', eventSelected);
+addSelected();
+//fillPixel();
